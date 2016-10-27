@@ -62,11 +62,10 @@ class LogStash::Outputs::SolrHTTP < LogStash::Outputs::Base
 
     events.each do |event|
         document = event.to_hash()
-        document["@timestamp"] = document["@timestamp"].iso8601 #make the timestamp ISO
         if @document_id.nil?
-          document ["id"] = UUIDTools::UUID.random_create    #add a unique ID
+          document["id"] = UUIDTools::UUID.random_create    #add a unique ID
         else
-          document ["id"] = event.sprintf(@document_id)      #or use the one provided
+          document["id"] = event.sprintf(@document_id)      #or use the one provided
         end
         documents.push(document)
     end
